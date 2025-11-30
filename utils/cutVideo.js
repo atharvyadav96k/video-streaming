@@ -1,25 +1,30 @@
-const ffmpeg = require('fluent-ffmpeg');
-const path = require('path');
+const ffmpeg = require("fluent-ffmpeg");
+const ffmpegPath = require("ffmpeg-static");
+const path = require("path");
 
+ffmpeg.setFfmpegPath(ffmpegPath);
 
 exports.cutVideo = () => {
-    const inputVideo = 'input.mp4';
-    const outputVideo = 'cut_video.mp4';
-    const startTime = '00:00:05';
+    const inputVideo = path.join(__dirname, "../videos/video.mp4");
+    const outputVideo = path.join(__dirname, "../videoOp/cut_video.mp4");
+
+    const startTime = "00:00:00";
     const duration = 10;
 
     ffmpeg(inputVideo)
         .setStartTime(startTime)
         .duration(duration)
+        .videoCodec("copy")
+        .audioCodec("copy")  
         .output(outputVideo)
-        .on('start', function (commandLine) {
-            console.log('Spawned FFmpeg with command: ' + commandLine);
+        .on("start", (cmd) => {
+            console.log("FFmpeg command:", cmd);
         })
-        .on('end', function () {
-            console.log('Video cutting finished successfully!');
+        .on("end", () => {
+            console.log("Video cutting finished successfully!");
         })
-        .on('error', function (err) {
-            console.error('An error occurred: ' + err.message);
+        .on("error", (err) => {
+            console.error("Error:", err.message);
         })
         .run();
-}
+};
