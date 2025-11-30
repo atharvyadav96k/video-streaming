@@ -1,0 +1,17 @@
+{
+  "name": "video-streaming",
+  "version": "1.0.0",
+  "description": "Stream video with support of auto quality and stream quality switch",
+  "license": "ISC",
+  "author": "Atharv Yadav (developer_aadesh)",
+  "type": "commonjs",
+  "main": "app.js",
+  "scripts": {
+    "test": "node app.js",
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "ffmpeg": "^0.0.4",
+    "fluent-ffmpeg": "^2.1.3"
+  }
+}
